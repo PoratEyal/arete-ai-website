@@ -128,18 +128,16 @@
 
     /* ─── HERO ─── */
     .hero {
-      min-height: 100vh;
-      padding: 100px 56px 80px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
+      min-height: 70vh;
+      padding: 120px 56px 80px;
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      max-width: 1200px;
+      text-align: center;
+      max-width: 800px;
       margin: 0 auto;
       position: relative;
     }
-
-    .hero-left { padding-bottom: 20px; }
 
     .hero-badges {
       display: flex; align-items: center; gap: 12px;
@@ -170,10 +168,10 @@
     .hero h1 em { font-style: normal; color: var(--purple); }
 
     .hero-sub {
-      font-size: 17px; font-weight: 400;
+      font-size: 18px; font-weight: 400;
       color: var(--text2);
       line-height: 1.65;
-      max-width: 440px;
+      max-width: 500px;
       margin-bottom: 36px;
       animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
     }
@@ -679,19 +677,6 @@
     }
 
     @media (max-width: 880px) {
-      .hero {
-        grid-template-columns: 1fr;
-        text-align: center;
-        padding-bottom: 60px;
-        min-height: auto;
-      }
-      .hero-badges { justify-content: center; }
-      .hero-sub { margin-left: auto; margin-right: auto; }
-      .hero-actions { justify-content: center; }
-      .hero-right { min-height: 360px; margin-bottom: 40px; order: -1; }
-      .phones-group { width: 300px; height: 460px; }
-      .phone-mockup.back-phone { left: 5%; }
-      .phone-mockup.front-phone { right: 5%; }
       .coaches-grid { grid-template-columns: repeat(2, 1fr); }
       .coaches-grid .coach-card:last-child { grid-column: 1 / -1; max-width: 220px; margin: 0 auto; }
       .cta-inner { grid-template-columns: 1fr; gap: 48px; }
@@ -704,7 +689,7 @@
       .nav-links { display: none; }
       .hamburger { display: flex; }
       .mobile-nav { display: flex; }
-      .hero { padding: 88px 20px 48px; }
+      .hero { padding: 88px 20px 56px; }
       section { padding: 56px 20px; }
       .cta-section { padding: 56px 20px; }
       #coaches { padding: 56px 0; }
@@ -712,31 +697,13 @@
       footer { padding: 28px 20px; }
       body::before, body::after { display: none; }
 
-      /* Hero: single centered phone, no rotation chaos */
-      .hero-right { min-height: auto; margin-bottom: 36px; order: -1; }
-      .phones-group {
-        position: static;
-        width: auto; height: auto;
-        display: flex; justify-content: center;
-      }
-      .phones-group::before { display: none; }
-      .phone-mockup.back-phone { display: none; }
-      .phone-mockup.front-phone {
-        position: relative;
-        width: 200px;
-        left: auto; right: auto; top: auto;
-        transform: rotate(-6deg);
-        animation: none;
-        box-shadow: 0 24px 56px rgba(20,8,50,0.22), 0 4px 16px rgba(20,8,50,0.1);
-      }
-
-      /* Features: hide phone images — text tells the story */
-      .feature-visual { display: none; }
+      /* Features: stack text above image */
       .feature-row {
         grid-template-columns: 1fr;
-        gap: 0; padding: 44px 0;
+        gap: 32px; padding: 44px 0;
       }
       .feature-row.reverse .feature-text { order: 0; }
+      .feature-row.reverse .feature-visual { order: 1; }
 
       /* Coaches: single column */
       .coaches-grid { grid-template-columns: 1fr !important; }
@@ -819,18 +786,6 @@
 
   </div>
 
-  <div class="hero-right">
-    <div class="phones-group">
-      <!-- Left / front phone — Home screen -->
-      <div class="phone-mockup front-phone">
-        <img src="assets/IMG_4852.PNG" alt="Home screen" class="phone-screen-img" />
-      </div>
-      <!-- Right / back phone — Tasks screen -->
-      <div class="phone-mockup back-phone">
-        <img src="assets/IMG_4854.PNG" alt="Tasks screen" class="phone-screen-img" />
-      </div>
-    </div>
-  </div>
 
 </div>
 
