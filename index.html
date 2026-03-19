@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arete AI — Your Personal AI Coach</title>
+  <link rel="icon" type="image/png" href="assets/app-logo.png" />
+  <link rel="apple-touch-icon" href="assets/app-logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple:       #5B21B6;
+      --purple-dark:  #3B0F85;
+      --purple-mid:   #7C3AED;
+      --purple-light: #EDE9FE;
+      --purple-soft:  #F5F3FF;
+      --bg:           #FAFAFA;
+      --border:       #E8E2F8;
+      --text:         #1C1033;
+      --text2:        #6B5FA0;
+      --text3:        #A89EC4;
+      --nav-bg:       rgba(250,250,252,0.92);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── BACKGROUND ORBS ─── */
+    body::before {
+      content: '';
+      position: fixed; top: -10vh; right: -5vw;
+      width: 60vw; height: 110vh;
+      background: radial-gradient(ellipse 70% 65% at 65% 45%, #ede9fe 0%, #f5f3ff 50%, transparent 75%);
+      pointer-events: none; z-index: -1;
+      animation: orbDrift 18s ease-in-out infinite alternate;
+    }
+
+    body::after {
+      content: '';
+      position: fixed; bottom: -20vh; left: -10vw;
+      width: 40vw; height: 60vh;
+      background: radial-gradient(ellipse 80% 70% at 40% 60%, rgba(124,58,237,0.06) 0%, transparent 70%);
+      pointer-events: none; z-index: -1;
+      animation: orbDrift 24s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes orbDrift {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(2%, 3%) scale(1.04); }
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 56px;
+      background: var(--nav-bg);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid var(--border);
+      animation: navSlideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes navSlideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to   { transform: translateY(0);     opacity: 1; }
+    }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 16px; font-weight: 700; letter-spacing: -0.3px;
+      color: var(--text); text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .nav-logo:hover { opacity: 0.8; }
+
+    .logo-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      overflow: hidden; flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(91,33,182,0.25);
+    }
+    .logo-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 40px; list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px; font-weight: 500;
+      color: var(--text2); text-decoration: none;
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -3px; left: 0; right: 0;
+      height: 1.5px; background: var(--purple);
+      transform: scaleX(0); transform-origin: center;
+      transition: transform 0.25s ease;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    .nav-cta {
+      display: inline-flex; align-items: center;
+      background: var(--purple); color: #fff;
+      padding: 9px 20px; border-radius: 980px;
+      font-size: 14px; font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 2px 12px rgba(91,33,182,0.3);
+    }
+    .nav-cta:hover {
+      background: var(--purple-dark); transform: scale(1.03);
+      box-shadow: 0 4px 18px rgba(91,33,182,0.4);
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      padding: 100px 56px 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .hero-left { padding-bottom: 20px; }
+
+    .hero-badges {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 28px;
+      animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+    }
+
+    .hero-badge {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 12px; font-weight: 600; color: var(--purple);
+      background: var(--purple-light);
+      padding: 5px 12px; border-radius: 980px;
+      border: 1px solid rgba(91,33,182,0.15);
+    }
+
+    .badge-sep { width: 1px; height: 20px; background: var(--border); }
+
+    .hero h1 {
+      font-size: clamp(40px, 5vw, 64px);
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1.08;
+      color: var(--text);
+      margin-bottom: 20px;
+      animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+    }
+
+    .hero h1 em { font-style: normal; color: var(--purple); }
+
+    .hero-sub {
+      font-size: 17px; font-weight: 400;
+      color: var(--text2);
+      line-height: 1.65;
+      max-width: 440px;
+      margin-bottom: 36px;
+      animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
+    }
+
+    .hero-actions {
+      display: flex; align-items: center; gap: 12px;
+      flex-wrap: wrap;
+      animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both;
+    }
+
+    @keyframes heroFadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--purple);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 980px;
+      font-size: 15px; font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 18px rgba(91,33,182,0.35);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .btn-primary:hover {
+      background: var(--purple-dark); transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(91,33,182,0.48);
+    }
+    .btn-primary:hover::before { opacity: 1; }
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 6px;
+      border: 1.5px solid var(--border);
+      color: var(--text);
+      padding: 13px 24px;
+      border-radius: 980px;
+      font-size: 15px; font-weight: 600;
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+    }
+    .btn-outline:hover {
+      border-color: var(--purple); background: var(--purple-light);
+      transform: translateY(-1px);
+    }
+
+    /* ─── HERO PHONES ─── */
+    .hero-right {
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      height: 100%;
+      min-height: 520px;
+      animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+    }
+
+    /* Centered group that holds both phones */
+    .phones-group {
+      position: relative;
+      width: 340px;
+      height: 500px;
+      flex-shrink: 0;
+    }
+
+    /* Soft glow behind phones */
+    .phones-group::before {
+      content: '';
+      position: absolute;
+      width: 360px; height: 360px;
+      background: radial-gradient(circle, rgba(124,58,237,0.1) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none; z-index: 0;
+    }
+
+    .phone-mockup {
+      border-radius: 40px;
+      background: #fff;
+      border: 5px solid #1c1c1e;
+      overflow: hidden;
+      position: absolute;
+    }
+
+    /* LEFT phone — front, tilted left */
+    .phone-mockup.front-phone {
+      width: 210px;
+      left: 0;
+      top: 30px;
+      transform-origin: bottom center;
+      z-index: 2;
+      box-shadow:
+        -10px 36px 60px rgba(20,8,50,0.26),
+        0 6px 18px rgba(20,8,50,0.12);
+      animation:
+        phoneEnterFront 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both,
+        phoneFloatFront  6s ease-in-out          1.6s infinite alternate;
+    }
+
+    /* RIGHT phone — back, tilted right */
+    .phone-mockup.back-phone {
+      width: 195px;
+      right: 0;
+      top: 0;
+      transform-origin: bottom center;
+      z-index: 1;
+      box-shadow:
+        10px 36px 60px rgba(20,8,50,0.2),
+        0 6px 18px rgba(20,8,50,0.1);
+      animation:
+        phoneEnterBack  1s cubic-bezier(0.16, 1, 0.3, 1) 0.85s both,
+        phoneFloatBack  6s ease-in-out           1.85s infinite alternate;
+    }
+
+    /* Entrance: front phone slides up from below-left */
+    @keyframes phoneEnterFront {
+      from {
+        opacity: 0;
+        transform: rotate(-13deg) translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: rotate(-13deg) translateY(0px);
+      }
+    }
+
+    /* Entrance: back phone slides in from above-right */
+    @keyframes phoneEnterBack {
+      from {
+        opacity: 0;
+        transform: rotate(11deg) translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: rotate(11deg) translateY(0px);
+      }
+    }
+
+    /* Float: front goes UP, back goes DOWN — counter-phase "breathing" */
+    @keyframes phoneFloatFront {
+      from { transform: rotate(-13deg) translateY(0px); }
+      to   { transform: rotate(-12.5deg) translateY(-13px); }
+    }
+
+    @keyframes phoneFloatBack {
+      from { transform: rotate(11deg) translateY(0px); }
+      to   { transform: rotate(10.5deg) translateY(10px); }
+    }
+
+    .phone-screen-img { width: 100%; display: block; }
+
+    /* ─── SECTION BASE ─── */
+    section { padding: 100px 56px; max-width: 1200px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.8px; text-transform: uppercase;
+      color: var(--purple); margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 800; letter-spacing: -1.5px; line-height: 1.1;
+      color: var(--text);
+    }
+
+    .section-sub { font-size: 17px; color: var(--text2); line-height: 1.65; }
+
+    /* ─── FEATURES ─── */
+    #features {
+      padding-top: 80px; padding-bottom: 80px;
+      border-top: 1px solid var(--border);
+    }
+
+    .feature-row {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+      padding: 72px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .feature-row:first-of-type { border-top: none; padding-top: 0; }
+    .feature-row.reverse .feature-text  { order: 2; }
+    .feature-row.reverse .feature-visual { order: 1; }
+
+    .feature-tag {
+      display: inline-block;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.7px; text-transform: uppercase;
+      color: var(--purple);
+      background: var(--purple-light);
+      padding: 4px 10px; border-radius: 6px;
+      margin-bottom: 18px;
+    }
+
+    .feature-title {
+      font-size: clamp(26px, 3vw, 38px);
+      font-weight: 800; letter-spacing: -1px; line-height: 1.15;
+      color: var(--text); margin-bottom: 14px;
+    }
+
+    .feature-desc {
+      font-size: 16px; color: var(--text2);
+      line-height: 1.7; margin-bottom: 26px;
+    }
+
+    .feature-points { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+    .feature-points li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 14px; color: var(--text); font-weight: 500;
+    }
+
+    .feature-points li::before {
+      content: '';
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--purple); flex-shrink: 0; margin-top: 5px;
+    }
+
+    .feature-visual { display: flex; justify-content: center; align-items: center; }
+
+    .feature-phone {
+      width: 240px;
+      border-radius: 40px;
+      background: #fff;
+      border: 5px solid #1a1a2e;
+      box-shadow: 0 32px 72px rgba(30,10,70,0.2), 0 6px 18px rgba(30,10,70,0.08);
+      overflow: hidden;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s;
+    }
+
+    .feature-phone:hover {
+      transform: translateY(-8px) rotate(1deg);
+      box-shadow: 0 44px 90px rgba(30,10,70,0.26), 0 10px 28px rgba(30,10,70,0.1);
+    }
+
+    /* ─── COACHES SECTION ─── */
+    #coaches {
+      border-top: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--purple-soft) 0%, #ffffff 100%);
+      max-width: none;
+      padding: 100px 0;
+    }
+
+    #coaches .coaches-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 56px;
+    }
+
+    .coaches-header { margin-bottom: 56px; text-align: center; }
+    .coaches-header .section-sub { margin: 14px auto 0; max-width: 440px; }
+
+    .coaches-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+
+    .coach-card {
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      padding: 26px 20px 24px;
+      transition: border-color 0.3s, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s;
+      cursor: default;
+    }
+
+    .coach-card:hover {
+      border-color: rgba(91,33,182,0.3);
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(91,33,182,0.12);
+    }
+
+    .coach-portrait {
+      width: 72px; height: 72px; border-radius: 50%;
+      margin-bottom: 14px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .coach-portrait img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top center;
+      display: block;
+    }
+
+    .portrait-marcus { background: linear-gradient(160deg, #1e293b, #0f172a); }
+    .portrait-kai    { background: linear-gradient(160deg, #065f46, #064e3b); }
+    .portrait-alex   { background: linear-gradient(160deg, #c2410c, #7c2d12); }
+    .portrait-victor { background: linear-gradient(160deg, #4c1d95, #1e1b4b); }
+    .portrait-sofia  { background: linear-gradient(160deg, #86198f, #4a044e); }
+
+    .coach-card-name {
+      font-size: 14px; font-weight: 700; color: var(--text);
+      margin-bottom: 6px; letter-spacing: -0.2px;
+    }
+
+    .coach-style-pill {
+      display: inline-block;
+      font-size: 10px; font-weight: 600;
+      padding: 3px 9px; border-radius: 980px;
+      margin-bottom: 12px;
+    }
+
+    .coach-tagline {
+      font-size: 12px; color: var(--text2);
+      line-height: 1.6; font-style: italic;
+    }
+
+    /* ─── CTA SECTION ─── */
+    .cta-section {
+      border-top: 1px solid var(--border);
+      padding: 100px 56px;
+      max-width: 1200px; margin: 0 auto;
+    }
+
+    .cta-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+
+    .cta-title {
+      font-size: clamp(34px, 4.5vw, 54px);
+      font-weight: 800; letter-spacing: -1.8px; line-height: 1.1;
+      color: var(--text); margin-bottom: 16px;
+    }
+    .cta-title em { font-style: normal; color: var(--purple); }
+
+    .cta-sub {
+      font-size: 17px; color: var(--text2);
+      line-height: 1.65; margin-bottom: 36px;
+    }
+
+    .cta-badges { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+
+    .badge-appstore {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--purple); color: #fff;
+      padding: 12px 20px; border-radius: 14px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 16px rgba(91,33,182,0.3);
+    }
+    .badge-appstore:hover {
+      background: var(--purple-dark); transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(91,33,182,0.4);
+    }
+
+    .badge-icon { font-size: 22px; }
+    .badge-text { display: flex; flex-direction: column; }
+    .badge-sub  { font-size: 9px; font-weight: 400; opacity: 0.6; letter-spacing: 0.3px; }
+    .badge-name { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; }
+
+    .badge-android {
+      display: inline-flex; align-items: center; gap: 7px;
+      color: var(--text); border: 1.5px solid var(--border);
+      padding: 12px 20px; border-radius: 14px;
+      font-size: 13px; font-weight: 600; text-decoration: none;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+    .badge-android:hover {
+      border-color: var(--purple); background: var(--purple-light);
+      transform: translateY(-2px);
+    }
+
+    .cta-footnote { font-size: 11px; color: var(--text3); margin-top: 16px; }
+
+    .cta-features { display: flex; flex-direction: column; gap: 24px; }
+    .cta-feat { display: flex; gap: 16px; align-items: flex-start; }
+
+    .cta-feat-icon {
+      width: 42px; height: 42px; border-radius: 12px;
+      background: var(--purple-light);
+      border: 1.5px solid rgba(91,33,182,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+      transition: transform 0.3s;
+    }
+    .cta-feat:hover .cta-feat-icon { transform: scale(1.1) rotate(-4deg); }
+
+    .cta-feat-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .cta-feat-desc  { font-size: 13px; color: var(--text2); line-height: 1.55; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 36px 56px;
+      background: #fff;
+    }
+
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .footer-logo {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 14px; font-weight: 700;
+      color: var(--text); text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .footer-logo:hover { opacity: 0.75; }
+
+    .footer-links { display: flex; gap: 28px; list-style: none; }
+    .footer-links a {
+      font-size: 13px; color: var(--text2); text-decoration: none;
+      font-weight: 500; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text); }
+
+    .footer-copy { font-size: 12px; color: var(--text3); }
+
+    /* ─── SCROLL ANIMATIONS ─── */
+    .fade-up {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .fade-up.visible { opacity: 1; transform: none; }
+
+    .fade-left {
+      opacity: 0; transform: translateX(-28px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .fade-left.visible { opacity: 1; transform: none; }
+
+    .fade-right {
+      opacity: 0; transform: translateX(28px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .fade-right.visible { opacity: 1; transform: none; }
+
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+    .delay-5 { transition-delay: 0.5s; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      nav { padding: 0 32px; }
+      .hero { padding: 100px 32px 60px; gap: 24px; }
+      section { padding: 80px 32px; }
+      .cta-section { padding: 80px 32px; }
+      #coaches .coaches-inner { padding: 0 32px; }
+      footer { padding: 32px; }
+    }
+
+    @media (max-width: 880px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding-bottom: 60px;
+        min-height: auto;
+      }
+      .hero-badges { justify-content: center; }
+      .hero-sub { margin-left: auto; margin-right: auto; }
+      .hero-actions { justify-content: center; }
+      .hero-right { min-height: 380px; margin-bottom: 48px; order: -1; }
+      .phone-mockup.back-phone { left: 10%; }
+      .phone-mockup.front-phone { right: 10%; }
+      .coaches-grid { grid-template-columns: repeat(2, 1fr); }
+      .coaches-grid .coach-card:last-child { grid-column: 1 / -1; max-width: 220px; margin: 0 auto; }
+      .cta-inner { grid-template-columns: 1fr; gap: 48px; }
+      .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; gap: 16px; }
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 90px 20px 60px; }
+      section { padding: 60px 20px; }
+      .cta-section { padding: 60px 20px; }
+      #coaches { padding: 60px 0; }
+      #coaches .coaches-inner { padding: 0 20px; }
+      footer { padding: 28px 20px; }
+      .feature-row { grid-template-columns: 1fr; gap: 36px; padding: 52px 0; }
+      .feature-row.reverse .feature-text  { order: 0; }
+      .feature-row.reverse .feature-visual { order: 0; }
+      body::before, body::after { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="logo-icon">
+      <img src="assets/app-logo.png" alt="Arete AI logo" />
+    </div>
+    Arete AI
+  </a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#coaches">Coaches</a></li>
+    <li><a href="#download">Download</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#download" class="nav-cta">Get the app</a>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<div class="hero">
+
+  <div class="hero-left">
+
+    <div class="hero-badges">
+      <div class="hero-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C9 2 7 4 7 7c0 2.5 1.5 4.5 3.5 5.5C8 14 6 16.5 6 19h12c0-2.5-2-5-4.5-6.5C15.5 11.5 17 9.5 17 7c0-3-2-5-5-5z"/></svg>
+        5 Unique Coaches
+      </div>
+      <div class="badge-sep"></div>
+      <div class="hero-badge">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        App Store Featured
+      </div>
+    </div>
+
+    <h1>
+      Your coach.<br />
+      <em>Your rules.</em><br />
+      Your results.
+    </h1>
+
+    <p class="hero-sub">
+      Meet your personal AI coach — built around your goals, habits, and grind. Five distinct coaches. One mission: make you unstoppable.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#download" class="btn-primary">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        Download on App Store
+      </a>
+      <a href="#coaches" class="btn-outline">Meet the coaches →</a>
+    </div>
+
+  </div>
+
+  <div class="hero-right">
+    <div class="phones-group">
+      <!-- Left / front phone — Home screen -->
+      <div class="phone-mockup front-phone">
+        <img src="assets/IMG_4852.PNG" alt="Home screen" class="phone-screen-img" />
+      </div>
+      <!-- Right / back phone — Tasks screen -->
+      <div class="phone-mockup back-phone">
+        <img src="assets/IMG_4854.PNG" alt="Tasks screen" class="phone-screen-img" />
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ─── FEATURES ─── -->
+<section id="features">
+
+  <!-- Row 1: Tasks -->
+  <div class="feature-row">
+    <div class="feature-text fade-left">
+      <div class="feature-tag">Task Management</div>
+      <h3 class="feature-title">Your mission list,<br/>always clear.</h3>
+      <p class="feature-desc">Set tasks with deadlines and categories. Your coach knows what's on your plate and holds you accountable in real time.</p>
+      <ul class="feature-points">
+        <li>Create tasks with deadlines and categories</li>
+        <li>Your coach references your tasks in every conversation</li>
+        <li>Smart reminders timed to your schedule</li>
+      </ul>
+    </div>
+    <div class="feature-visual fade-right">
+      <div class="feature-phone">
+        <img src="assets/IMG_4854.PNG" alt="Tasks screen" class="phone-screen-img" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 2: Habits -->
+  <div class="feature-row reverse">
+    <div class="feature-text fade-right">
+      <div class="feature-tag">Habit Tracker</div>
+      <h3 class="feature-title">Build streaks.<br/>Break limits.</h3>
+      <p class="feature-desc">Track your daily habits with visual streaks that keep you motivated. One day at a time, until consistency becomes identity.</p>
+      <ul class="feature-points">
+        <li>Visual streak tracking with daily check-ins</li>
+        <li>Achievement milestones — Starting Out, On Fire, Unstoppable</li>
+        <li>Your coach celebrates progress and pushes you further</li>
+      </ul>
+    </div>
+    <div class="feature-visual fade-left">
+      <div class="feature-phone">
+        <img src="assets/IMG_4853.PNG" alt="Habits screen" class="phone-screen-img" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 3: AI Chat -->
+  <div class="feature-row">
+    <div class="feature-text fade-left">
+      <div class="feature-tag">AI Coaching</div>
+      <h3 class="feature-title">A coach who<br/>actually knows you.</h3>
+      <p class="feature-desc">Your AI coach speaks your language, knows your tasks and habits, and responds in the personality of the coach you chose. Personalized. Real-time. Always on.</p>
+      <ul class="feature-points">
+        <li>5 coaches with distinct personalities and styles</li>
+        <li>Context-aware — knows your tasks, habits, and history</li>
+        <li>Responds in your language, in their unique voice</li>
+      </ul>
+    </div>
+    <div class="feature-visual fade-right">
+      <div class="feature-phone">
+        <img src="assets/IMG_4855.PNG" alt="Chat screen" class="phone-screen-img" />
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ─── COACHES ─── -->
+<section id="coaches">
+  <div class="coaches-inner">
+
+    <div class="coaches-header fade-up">
+      <div class="section-label">Your Coach</div>
+      <h2 class="section-title">Five coaches.<br/>One is yours.</h2>
+      <p class="section-sub">Every person grows differently. Pick the coach that fits your energy — and let them push you to your potential.</p>
+    </div>
+
+    <div class="coaches-grid">
+      <div class="coach-card fade-up">
+        <div class="coach-portrait portrait-marcus">
+          <img src="assets/coaches/Marcus_Steel.png" alt="Marcus Steel" />
+        </div>
+        <div class="coach-card-name">Marcus Steel</div>
+        <div class="coach-style-pill" style="background:rgba(239,68,68,0.08);color:#dc2626;">Military Discipline</div>
+        <div class="coach-tagline">"Zero excuses. Maximum output. Every day is a battle — and you will win it."</div>
+      </div>
+
+      <div class="coach-card fade-up delay-1">
+        <div class="coach-portrait portrait-kai">
+          <img src="assets/coaches/Kai Nakamura.png" alt="Kai Nakamura" />
+        </div>
+        <div class="coach-card-name">Kai Nakamura</div>
+        <div class="coach-style-pill" style="background:rgba(6,182,212,0.08);color:#0891b2;">Zen & Mindfulness</div>
+        <div class="coach-tagline">"Stillness is power. Build from the inside out — deep focus, lasting calm."</div>
+      </div>
+
+      <div class="coach-card fade-up delay-2">
+        <div class="coach-portrait portrait-alex">
+          <img src="assets/coaches/Alex Blaze.png" alt="Alex Blaze" />
+        </div>
+        <div class="coach-card-name">Alex Blaze</div>
+        <div class="coach-style-pill" style="background:rgba(245,158,11,0.08);color:#d97706;">Entrepreneur</div>
+        <div class="coach-tagline">"Ideas are cheap. Execution is everything. Move fast, win big."</div>
+      </div>
+
+      <div class="coach-card fade-up delay-3">
+        <div class="coach-portrait portrait-victor">
+          <img src="assets/coaches/Dr. Victor Sage.png" alt="Dr. Victor Sage" />
+        </div>
+        <div class="coach-card-name">Dr. Victor Sage</div>
+        <div class="coach-style-pill" style="background:rgba(91,33,182,0.08);color:#5B21B6;">Psychology & Purpose</div>
+        <div class="coach-tagline">"Know yourself deeply. Then transform from the root."</div>
+      </div>
+
+      <div class="coach-card fade-up delay-4">
+        <div class="coach-portrait portrait-sofia">
+          <img src="assets/coaches/Sofia Reyes.png" alt="Sofia Reyes" />
+        </div>
+        <div class="coach-card-name">Sofia Reyes</div>
+        <div class="coach-style-pill" style="background:rgba(16,185,129,0.08);color:#059669;">Elite Performance</div>
+        <div class="coach-tagline">"Champions are made in the moments they want to quit."</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── CTA ─── -->
+<div id="download" class="cta-section">
+  <div class="cta-inner">
+    <div class="fade-up">
+      <div class="section-label">Get Started</div>
+      <h2 class="cta-title">Start your journey.<br/><em>Free forever.</em></h2>
+      <p class="cta-sub">Download Arete AI and meet your coach today. No subscriptions, no paywalls — just you and your potential.</p>
+      <div class="cta-badges">
+        <a href="#" class="badge-appstore">
+          <span class="badge-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          </span>
+          <span class="badge-text">
+            <span class="badge-sub">Download on the</span>
+            <span class="badge-name">App Store</span>
+          </span>
+        </a>
+        <a href="#" class="badge-android">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h2v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h1c.55 0 1-.45 1-1V8H6v10zM3.5 8C2.67 8 2 8.67 2 9.5v7c0 .83.67 1.5 1.5 1.5S5 17.33 5 16.5v-7C5 8.67 4.33 8 3.5 8zm17 0c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5zm-4.97-5.84l1.3-1.3c.2-.2.2-.51 0-.71-.2-.2-.51-.2-.71 0l-1.48 1.48C13.85 1.23 12.95 1 12 1c-.96 0-1.86.23-2.66.63L7.85.15c-.2-.2-.51-.2-.71 0-.2.2-.2.51 0 .71l1.31 1.31C6.97 3.26 6 5.01 6 7h12c0-1.99-.97-3.75-2.47-4.84zM10 5H9V4h1v1zm5 0h-1V4h1v1z"/></svg>
+          Coming to Android
+        </a>
+      </div>
+      <p class="cta-footnote">Free to download · Available on iOS 16+ · No account required to start</p>
+    </div>
+    <div class="cta-features fade-up delay-2">
+      <div class="cta-feat">
+        <div class="cta-feat-icon">🎯</div>
+        <div>
+          <div class="cta-feat-title">Personalized from day one</div>
+          <div class="cta-feat-desc">Choose your coach, set your goals, and get a plan built around you — not a generic template.</div>
+        </div>
+      </div>
+      <div class="cta-feat">
+        <div class="cta-feat-icon">🔒</div>
+        <div>
+          <div class="cta-feat-title">Your data stays yours</div>
+          <div class="cta-feat-desc">All your tasks, habits, and conversations are private. We never sell your data.</div>
+        </div>
+      </div>
+      <div class="cta-feat">
+        <div class="cta-feat-icon">⚡</div>
+        <div>
+          <div class="cta-feat-title">Instant responses, always</div>
+          <div class="cta-feat-desc">Your coach is available 24/7 — no waiting, no scheduling, no fluff.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-inner">
+    <a href="#" class="footer-logo">
+      <div class="logo-icon">
+        <img src="assets/app-logo.png" alt="Arete AI logo" />
+      </div>
+      Arete AI
+    </a>
+    <ul class="footer-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#coaches">Coaches</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+      <li><a href="terms.html">Terms</a></li>
+    </ul>
+    <div class="footer-copy">© 2025 Arete AI</div>
+  </div>
+</footer>
+
+<script>
+  // ─── Scroll-triggered reveals ───
+  const revealObserver = new IntersectionObserver(
+    (entries) => entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        revealObserver.unobserve(e.target);
+      }
+    }),
+    { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+  );
+  document.querySelectorAll('.fade-up, .fade-left, .fade-right').forEach(el => revealObserver.observe(el));
+
+  // ─── Smooth scroll ───
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href');
+      if (id === '#') return;
+      const target = document.querySelector(id);
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+
+  // ─── Nav shrink on scroll ───
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 40) {
+      nav.style.height = '56px';
+      nav.style.boxShadow = '0 2px 20px rgba(91,33,182,0.08)';
+    } else {
+      nav.style.height = '64px';
+      nav.style.boxShadow = 'none';
+    }
+  }, { passive: true });
+</script>
+</body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Service — Arete AI</title>
+  <link rel="icon" type="image/png" href="assets/app-logo.png" />
+  <link rel="apple-touch-icon" href="assets/app-logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --purple: #5B21B6; --purple-light: #EDE9FE; --purple-soft: #F5F3FF;
+      --bg: #FAFAFA; --border: #E8E2F8; --text: #1C1033; --text2: #6B5FA0; --text3: #A89EC4;
+      --nav-bg: rgba(250,250,252,0.92);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Sora', sans-serif; background: var(--bg);
+      color: var(--text); -webkit-font-smoothing: antialiased;
+    }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 64px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 56px; background: var(--nav-bg);
+      backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 16px; font-weight: 700; color: var(--text); text-decoration: none;
+    }
+    .logo-icon { width: 32px; height: 32px; border-radius: 8px; overflow: hidden; }
+    .logo-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .nav-back {
+      font-size: 14px; font-weight: 500; color: var(--text2);
+      text-decoration: none; transition: color 0.2s;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .nav-back:hover { color: var(--text); }
+
+    .page-wrap {
+      max-width: 720px; margin: 0 auto;
+      padding: 120px 40px 80px;
+      animation: fadeIn 0.6s ease both;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+    .page-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+      color: var(--purple); margin-bottom: 12px;
+    }
+    h1 { font-size: 40px; font-weight: 800; letter-spacing: -1.5px; color: var(--text); margin-bottom: 8px; }
+    .page-date { font-size: 13px; color: var(--text3); margin-bottom: 48px; }
+
+    .prose { display: flex; flex-direction: column; gap: 32px; }
+
+    .prose h2 {
+      font-size: 20px; font-weight: 700; color: var(--text);
+      letter-spacing: -0.5px; margin-bottom: 12px;
+      padding-bottom: 10px; border-bottom: 1px solid var(--border);
+    }
+
+    .prose p, .prose li {
+      font-size: 15px; line-height: 1.75; color: var(--text2);
+    }
+
+    .prose ul { padding-left: 20px; display: flex; flex-direction: column; gap: 8px; }
+    .prose ul li::marker { color: var(--purple); }
+
+    .prose strong { color: var(--text); font-weight: 600; }
+
+    .highlight-box {
+      background: var(--purple-soft); border: 1px solid var(--border);
+      border-radius: 16px; padding: 20px 24px;
+    }
+    .highlight-box p { color: var(--text2); font-size: 14px; line-height: 1.7; }
+
+    footer {
+      border-top: 1px solid var(--border); padding: 28px 56px; background: #fff; margin-top: 60px;
+    }
+    .footer-inner {
+      max-width: 720px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-logo {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 14px; font-weight: 700; color: var(--text); text-decoration: none;
+    }
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+    .footer-links a { font-size: 13px; color: var(--text2); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy { font-size: 12px; color: var(--text3); }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 20px; }
+      .page-wrap { padding: 100px 24px 60px; }
+      h1 { font-size: 30px; }
+      footer { padding: 24px 20px; }
+      .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon">
+      <img src="assets/app-logo.png" alt="Arete AI logo" />
+    </div>
+    Arete AI
+  </a>
+  <a href="index.html" class="nav-back">
+    ← Back to home
+  </a>
+</nav>
+
+<div class="page-wrap">
+  <div class="page-label">Legal</div>
+  <h1>Terms of Service</h1>
+  <div class="page-date">Last updated: March 2025</div>
+
+  <div class="prose">
+
+    <div>
+      <h2>Agreement to Terms</h2>
+      <p>By downloading, installing, or using Arete AI, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use the app.</p>
+    </div>
+
+    <div>
+      <h2>Description of Service</h2>
+      <p>Arete AI is a personal AI coaching application that provides:</p>
+      <ul>
+        <li>AI-powered coaching conversations with distinct coach personas</li>
+        <li>Task management and goal tracking tools</li>
+        <li>Habit tracking with streak monitoring</li>
+        <li>Personalized accountability features</li>
+      </ul>
+      <p>The service is provided "as is" and we reserve the right to modify, suspend, or discontinue features at any time.</p>
+    </div>
+
+    <div>
+      <h2>Not a Substitute for Professional Help</h2>
+      <div class="highlight-box">
+        <p><strong>Important:</strong> Arete AI is a productivity and motivation tool. It is not a licensed therapist, medical professional, or mental health provider. The AI coaches are not real people and do not provide professional medical, psychological, or therapeutic advice. If you are experiencing mental health challenges, please seek qualified professional help.</p>
+      </div>
+    </div>
+
+    <div>
+      <h2>User Accounts</h2>
+      <p>To use certain features of Arete AI, you may need to create an account. You are responsible for:</p>
+      <ul>
+        <li>Maintaining the confidentiality of your account credentials</li>
+        <li>All activity that occurs under your account</li>
+        <li>Providing accurate and up-to-date information</li>
+        <li>Notifying us immediately of any unauthorized use of your account</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2>Acceptable Use</h2>
+      <p>You agree not to use Arete AI to:</p>
+      <ul>
+        <li>Violate any applicable laws or regulations</li>
+        <li>Harass, abuse, or harm other users</li>
+        <li>Attempt to reverse-engineer or circumvent the app's security measures</li>
+        <li>Use the service for any commercial purpose without our written consent</li>
+        <li>Submit false or misleading information</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2>Intellectual Property</h2>
+      <p>All content, features, and functionality of Arete AI — including but not limited to the app design, AI coach personas, text, graphics, and code — are owned by Arete AI and protected by applicable intellectual property laws.</p>
+      <p>Content you create within the app (tasks, goals, habits) remains yours. By using the service, you grant us a limited license to process this content to provide the coaching service.</p>
+    </div>
+
+    <div>
+      <h2>Free Service</h2>
+      <p>Arete AI is currently provided free of charge. We reserve the right to introduce paid features or subscriptions in the future. You will be clearly notified before any free features become paid, and existing free functionality will not be retroactively locked behind a paywall without prior notice.</p>
+    </div>
+
+    <div>
+      <h2>Disclaimer of Warranties</h2>
+      <p>Arete AI is provided on an "as is" and "as available" basis without warranties of any kind, either express or implied. We do not warrant that the service will be uninterrupted, error-free, or completely secure.</p>
+    </div>
+
+    <div>
+      <h2>Limitation of Liability</h2>
+      <p>To the maximum extent permitted by law, Arete AI shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of or inability to use the service.</p>
+    </div>
+
+    <div>
+      <h2>Termination</h2>
+      <p>We reserve the right to suspend or terminate your access to Arete AI at our discretion, with or without notice, if we determine you have violated these Terms of Service. You may also stop using the app and delete your account at any time.</p>
+    </div>
+
+    <div>
+      <h2>Changes to Terms</h2>
+      <p>We may update these Terms of Service from time to time. Continued use of the app after changes are posted constitutes your acceptance of the updated terms. We will notify users of material changes via the app.</p>
+    </div>
+
+    <div>
+      <h2>Governing Law</h2>
+      <p>These Terms of Service are governed by and construed in accordance with applicable laws. Any disputes arising from these terms shall be subject to the exclusive jurisdiction of the relevant courts.</p>
+    </div>
+
+    <div>
+      <h2>Contact</h2>
+      <div class="highlight-box">
+        <p>If you have any questions about these Terms of Service, please contact us. We aim to respond to all inquiries within a reasonable timeframe.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo">
+      <div class="logo-icon">
+        <img src="assets/app-logo.png" alt="Arete AI logo" />
+      </div>
+      Arete AI
+    </a>
+    <ul class="footer-links">
+      <li><a href="index.html#features">Features</a></li>
+      <li><a href="index.html#coaches">Coaches</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+      <li><a href="terms.html">Terms</a></li>
+    </ul>
+    <div class="footer-copy">© 2025 Arete AI</div>
+  </div>
+</footer>
+
+</body>
+</html>

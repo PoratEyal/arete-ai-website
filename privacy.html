@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Arete AI</title>
+  <link rel="icon" type="image/png" href="assets/app-logo.png" />
+  <link rel="apple-touch-icon" href="assets/app-logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --purple: #5B21B6; --purple-light: #EDE9FE; --purple-soft: #F5F3FF;
+      --bg: #FAFAFA; --border: #E8E2F8; --text: #1C1033; --text2: #6B5FA0; --text3: #A89EC4;
+      --nav-bg: rgba(250,250,252,0.92);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Sora', sans-serif; background: var(--bg);
+      color: var(--text); -webkit-font-smoothing: antialiased;
+    }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 64px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 56px; background: var(--nav-bg);
+      backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 16px; font-weight: 700; color: var(--text); text-decoration: none;
+    }
+    .logo-icon { width: 32px; height: 32px; border-radius: 8px; overflow: hidden; }
+    .logo-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .nav-back {
+      font-size: 14px; font-weight: 500; color: var(--text2);
+      text-decoration: none; transition: color 0.2s;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .nav-back:hover { color: var(--text); }
+
+    .page-wrap {
+      max-width: 720px; margin: 0 auto;
+      padding: 120px 40px 80px;
+      animation: fadeIn 0.6s ease both;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+    .page-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+      color: var(--purple); margin-bottom: 12px;
+    }
+    h1 { font-size: 40px; font-weight: 800; letter-spacing: -1.5px; color: var(--text); margin-bottom: 8px; }
+    .page-date { font-size: 13px; color: var(--text3); margin-bottom: 48px; }
+
+    .prose { display: flex; flex-direction: column; gap: 32px; }
+
+    .prose h2 {
+      font-size: 20px; font-weight: 700; color: var(--text);
+      letter-spacing: -0.5px; margin-bottom: 12px;
+      padding-bottom: 10px; border-bottom: 1px solid var(--border);
+    }
+
+    .prose p, .prose li {
+      font-size: 15px; line-height: 1.75; color: var(--text2);
+    }
+
+    .prose ul { padding-left: 20px; display: flex; flex-direction: column; gap: 8px; }
+    .prose ul li::marker { color: var(--purple); }
+
+    .prose strong { color: var(--text); font-weight: 600; }
+
+    .prose a { color: var(--purple); text-decoration: underline; text-underline-offset: 3px; }
+
+    .contact-box {
+      background: var(--purple-soft); border: 1px solid var(--border);
+      border-radius: 16px; padding: 24px 28px; margin-top: 8px;
+    }
+    .contact-box p { color: var(--text2); font-size: 15px; line-height: 1.7; }
+
+    footer {
+      border-top: 1px solid var(--border); padding: 28px 56px; background: #fff; margin-top: 60px;
+    }
+    .footer-inner {
+      max-width: 720px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-logo {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 14px; font-weight: 700; color: var(--text); text-decoration: none;
+    }
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+    .footer-links a { font-size: 13px; color: var(--text2); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy { font-size: 12px; color: var(--text3); }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 20px; }
+      .page-wrap { padding: 100px 24px 60px; }
+      h1 { font-size: 30px; }
+      footer { padding: 24px 20px; }
+      .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon">
+      <img src="assets/app-logo.png" alt="Arete AI logo" />
+    </div>
+    Arete AI
+  </a>
+  <a href="index.html" class="nav-back">
+    ← Back to home
+  </a>
+</nav>
+
+<div class="page-wrap">
+  <div class="page-label">Legal</div>
+  <h1>Privacy Policy</h1>
+  <div class="page-date">Last updated: March 2025</div>
+
+  <div class="prose">
+
+    <div>
+      <h2>Introduction</h2>
+      <p>Arete AI ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your personal information when you use our mobile application and website.</p>
+      <p>By using Arete AI, you agree to the collection and use of information in accordance with this policy.</p>
+    </div>
+
+    <div>
+      <h2>Information We Collect</h2>
+      <p>We collect the following types of information to provide and improve our service:</p>
+      <ul>
+        <li><strong>Account information</strong> — When you create an account, we collect your name and email address.</li>
+        <li><strong>Usage data</strong> — Tasks, habits, streaks, and goals you create within the app.</li>
+        <li><strong>Conversation data</strong> — Messages you exchange with your AI coach, stored to provide context-aware coaching.</li>
+        <li><strong>Device information</strong> — Device type, operating system version, and app version for support and analytics.</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2>How We Use Your Information</h2>
+      <p>We use the information we collect to:</p>
+      <ul>
+        <li>Provide, maintain, and improve the Arete AI service</li>
+        <li>Personalize your coaching experience</li>
+        <li>Send notifications and reminders you've configured</li>
+        <li>Respond to customer support requests</li>
+        <li>Monitor and analyze usage patterns to improve the app</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2>Data Storage & Security</h2>
+      <p>Your data is stored securely using industry-standard encryption. We use reputable cloud infrastructure providers and implement technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.</p>
+      <p>Conversation data with your AI coach is encrypted in transit and at rest.</p>
+    </div>
+
+    <div>
+      <h2>We Do Not Sell Your Data</h2>
+      <p><strong>We will never sell, rent, or trade your personal data to third parties for marketing purposes.</strong> Your tasks, habits, goals, and conversations are private to you.</p>
+    </div>
+
+    <div>
+      <h2>Third-Party Services</h2>
+      <p>We use the following third-party services to operate Arete AI:</p>
+      <ul>
+        <li><strong>AI model providers</strong> — To power the coaching conversations. Conversation data is processed in accordance with their privacy policies.</li>
+        <li><strong>Analytics</strong> — Aggregated, anonymized usage data to understand how the app is used.</li>
+        <li><strong>Push notifications</strong> — To send reminders via Apple Push Notification Service (APNs).</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2>Data Retention</h2>
+      <p>We retain your data for as long as your account is active. If you delete your account, we will delete your personal data within 30 days, except where we are required to retain it for legal reasons.</p>
+    </div>
+
+    <div>
+      <h2>Your Rights</h2>
+      <p>You have the right to:</p>
+      <ul>
+        <li>Access the personal data we hold about you</li>
+        <li>Request correction of inaccurate data</li>
+        <li>Request deletion of your data</li>
+        <li>Export your data in a portable format</li>
+      </ul>
+      <p>To exercise any of these rights, please contact us using the information below.</p>
+    </div>
+
+    <div>
+      <h2>Children's Privacy</h2>
+      <p>Arete AI is not intended for children under the age of 13. We do not knowingly collect personal information from children under 13. If you believe we have inadvertently collected such data, please contact us immediately.</p>
+    </div>
+
+    <div>
+      <h2>Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. We will notify you of any significant changes by posting the new policy in the app and updating the "Last updated" date above.</p>
+    </div>
+
+    <div>
+      <h2>Contact Us</h2>
+      <div class="contact-box">
+        <p>If you have any questions about this Privacy Policy or how we handle your data, please reach out to us. We're committed to resolving any concerns promptly and transparently.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo">
+      <div class="logo-icon">
+        <img src="assets/app-logo.png" alt="Arete AI logo" />
+      </div>
+      Arete AI
+    </a>
+    <ul class="footer-links">
+      <li><a href="index.html#features">Features</a></li>
+      <li><a href="index.html#coaches">Coaches</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+      <li><a href="terms.html">Terms</a></li>
+    </ul>
+    <div class="footer-copy">© 2025 Arete AI</div>
+  </div>
+</footer>
+
+</body>
+</html>
