@@ -59,7 +59,7 @@
     .prose h2 {
       font-size: 20px; font-weight: 700; color: var(--text);
       letter-spacing: -0.5px; margin-bottom: 12px;
-      padding-bottom: 10px; border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
     }
 
     .prose p, .prose li {
@@ -102,13 +102,13 @@
     }
     .contact-box h3 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
     .contact-box p { font-size: 15px; line-height: 1.7; color: var(--text2); margin-bottom: 20px; }
-    .contact-email {
+    .prose a.contact-email {
       display: inline-flex; align-items: center; gap: 8px;
-      background: var(--purple); color: #fff; text-decoration: none;
+      background: var(--purple); color: #fff !important; text-decoration: none !important;
       font-size: 14px; font-weight: 600; padding: 11px 20px; border-radius: 980px;
       transition: background 0.2s;
     }
-    .contact-email:hover { background: #3B0F85; }
+    .prose a.contact-email:hover { background: #3B0F85; }
 
     footer {
       border-top: 1px solid var(--border); padding: 28px 56px; background: #fff; margin-top: 60px;
