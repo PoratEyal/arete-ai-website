@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support — Arete AI</title>
+  <link rel="icon" type="image/png" href="assets/favicon-circle.png" />
+  <link rel="apple-touch-icon" href="assets/favicon-circle.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --purple: #5B21B6; --purple-light: #EDE9FE; --purple-soft: #F5F3FF;
+      --bg: #FAFAFA; --border: #E8E2F8; --text: #1C1033; --text2: #6B5FA0; --text3: #A89EC4;
+      --nav-bg: rgba(250,250,252,0.92);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Sora', sans-serif; background: var(--bg);
+      color: var(--text); -webkit-font-smoothing: antialiased;
+    }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 64px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 56px; background: var(--nav-bg);
+      backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 16px; font-weight: 700; color: var(--text); text-decoration: none;
+    }
+    .logo-icon { width: 32px; height: 32px; border-radius: 8px; overflow: hidden; }
+    .logo-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .nav-back {
+      font-size: 14px; font-weight: 500; color: var(--text2);
+      text-decoration: none; transition: color 0.2s;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .nav-back:hover { color: var(--text); }
+
+    .page-wrap {
+      max-width: 720px; margin: 0 auto;
+      padding: 120px 40px 80px;
+      animation: fadeIn 0.6s ease both;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+    .page-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+      color: var(--purple); margin-bottom: 12px;
+    }
+    h1 { font-size: 40px; font-weight: 800; letter-spacing: -1.5px; color: var(--text); margin-bottom: 8px; }
+    .page-subtitle { font-size: 16px; color: var(--text2); line-height: 1.6; margin-bottom: 48px; }
+
+    .prose { display: flex; flex-direction: column; gap: 32px; }
+
+    .prose h2 {
+      font-size: 20px; font-weight: 700; color: var(--text);
+      letter-spacing: -0.5px; margin-bottom: 12px;
+      padding-bottom: 10px; border-bottom: 1px solid var(--border);
+    }
+
+    .prose p, .prose li {
+      font-size: 15px; line-height: 1.75; color: var(--text2);
+    }
+
+    .prose ul { padding-left: 20px; display: flex; flex-direction: column; gap: 8px; }
+    .prose ul li::marker { color: var(--purple); }
+    .prose strong { color: var(--text); font-weight: 600; }
+    .prose a { color: var(--purple); text-decoration: underline; text-underline-offset: 3px; }
+
+    /* FAQ accordion */
+    .faq-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-question {
+      width: 100%; text-align: left; background: none; border: none; cursor: pointer;
+      padding: 18px 22px; display: flex; justify-content: space-between; align-items: center;
+      gap: 16px; font-family: 'Sora', sans-serif;
+    }
+    .faq-question span { font-size: 15px; font-weight: 600; color: var(--text); }
+    .faq-icon {
+      flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
+      background: var(--purple-light); color: var(--purple);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 400; transition: transform 0.25s, background 0.2s;
+      line-height: 1;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); background: var(--purple); color: #fff; }
+    .faq-answer {
+      display: none; padding: 0 22px 18px;
+      font-size: 15px; line-height: 1.75; color: var(--text2);
+    }
+    .faq-item.open .faq-answer { display: block; }
+
+    /* Contact box */
+    .contact-box {
+      background: var(--purple-soft); border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px 32px;
+    }
+    .contact-box h3 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .contact-box p { font-size: 15px; line-height: 1.7; color: var(--text2); margin-bottom: 20px; }
+    .contact-email {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--purple); color: #fff; text-decoration: none;
+      font-size: 14px; font-weight: 600; padding: 11px 20px; border-radius: 980px;
+      transition: background 0.2s;
+    }
+    .contact-email:hover { background: #3B0F85; }
+
+    footer {
+      border-top: 1px solid var(--border); padding: 28px 56px; background: #fff; margin-top: 60px;
+    }
+    .footer-inner {
+      max-width: 720px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-logo {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 14px; font-weight: 700; color: var(--text); text-decoration: none;
+    }
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+    .footer-links a { font-size: 13px; color: var(--text2); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy { font-size: 12px; color: var(--text3); }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 20px; }
+      .page-wrap { padding: 100px 24px 60px; }
+      h1 { font-size: 30px; }
+      footer { padding: 24px 20px; }
+      .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; gap: 12px; }
+      .contact-box { padding: 22px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon">
+      <img src="assets/logo.png" alt="Arete AI logo" />
+    </div>
+    Arete AI
+  </a>
+  <a href="index.html" class="nav-back">
+    ← Back to home
+  </a>
+</nav>
+
+<div class="page-wrap">
+  <div class="page-label">Support</div>
+  <h1>How can we help?</h1>
+  <p class="page-subtitle">Find answers to common questions or reach out to us directly — we're here to help.</p>
+
+  <div class="prose">
+
+    <div>
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>How do I create an account?</span>
+            <div class="faq-icon">+</div>
+          </button>
+          <div class="faq-answer">Download the Arete AI app, open it, and tap <strong>Get Started</strong>. You can sign up with your email address. Once registered, you'll be guided through choosing your first AI coach and setting up your goals.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>How do I delete my account and data?</span>
+            <div class="faq-icon">+</div>
+          </button>
+          <div class="faq-answer">You can request account deletion at any time by contacting us at the email below. We will permanently delete your account and all associated data within 30 days of your request, in accordance with our Privacy Policy.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Can I switch my AI coach?</span>
+            <div class="faq-icon">+</div>
+          </button>
+          <div class="faq-answer">Yes. You can change your AI coach at any time from the app settings. Each coach has a unique personality and coaching style — try different ones to find the best fit for you.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Why aren't my notifications working?</span>
+            <div class="faq-icon">+</div>
+          </button>
+          <div class="faq-answer">Make sure notifications are enabled for Arete AI in your iPhone's <strong>Settings → Notifications → Arete AI</strong>. Also check that your in-app reminder settings are configured. If the issue persists, try reinstalling the app.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Is my data private and secure?</span>
+            <div class="faq-icon">+</div>
+          </button>
+          <div class="faq-answer">Yes. Your conversations and personal data are encrypted in transit and at rest. We never sell your data to third parties. For full details, see our <a href="privacy.html">Privacy Policy</a>.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>How do I cancel my subscription?</span>
+            <div class="faq-icon">+</div>
+          </button>
+          <div class="faq-answer">Subscriptions are managed through Apple. To cancel, go to <strong>Settings → Apple ID → Subscriptions</strong> on your iPhone and select Arete AI. You can cancel at any time and continue using the app until the end of your billing period.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>The app is crashing or not loading — what should I do?</span>
+            <div class="faq-icon">+</div>
+          </button>
+          <div class="faq-answer">First, try closing and reopening the app. If the problem continues, check for an update in the App Store. You can also try uninstalling and reinstalling the app — your account data is saved to our servers and will be restored when you log back in. If none of these help, contact us directly.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div>
+      <h2>Contact Support</h2>
+      <div class="contact-box">
+        <h3>Still need help?</h3>
+        <p>Our support team typically responds within 1 business day. Please include your device model, iOS version, and a description of the issue so we can assist you as quickly as possible.</p>
+        <a href="mailto:support@areteai.app" class="contact-email">
+          ✉ support@areteai.app
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <h2>Account Deletion</h2>
+      <p>To request permanent deletion of your Arete AI account and all associated personal data, email us at <a href="mailto:support@areteai.app">support@areteai.app</a> with the subject line <strong>"Account Deletion Request"</strong> and the email address associated with your account. We will process your request within 30 days.</p>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo">
+      <div class="logo-icon">
+        <img src="assets/logo.png" alt="Arete AI logo" />
+      </div>
+      Arete AI
+    </a>
+    <ul class="footer-links">
+      <li><a href="index.html#features">Features</a></li>
+      <li><a href="index.html#coaches">Coaches</a></li>
+      <li><a href="support.html">Support</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+      <li><a href="terms.html">Terms</a></li>
+    </ul>
+    <div class="footer-copy">© 2025 Arete AI</div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+</script>
+
+</body>
+</html>
