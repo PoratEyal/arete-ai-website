@@ -441,9 +441,10 @@
 
     .coach-card {
       background: #fff;
-      border: 1.5px solid var(--border);
+      border: 1px solid rgba(0,0,0,0.07);
       border-radius: 20px;
-      padding: 26px 20px 24px;
+      padding: 28px 20px 24px;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
       transition: border-color 0.3s, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s;
       cursor: default;
     }
@@ -721,7 +722,7 @@
       /* Coaches: single column */
       .coaches-grid { grid-template-columns: 1fr !important; }
       .coaches-grid .coach-card:last-child { grid-column: auto; max-width: 100%; margin: 0; }
-      .coach-card { display: flex; align-items: center; gap: 16px; padding: 18px 16px; }
+      .coach-card { display: flex; flex-direction: row; align-items: center; text-align: left; gap: 16px; padding: 18px 16px; }
       .coach-portrait { margin-bottom: 0; flex-shrink: 0; }
       .coach-card-info { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
       .coach-card-name { margin-bottom: 0; }
