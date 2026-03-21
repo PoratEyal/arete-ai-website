@@ -479,10 +479,23 @@
     }
 
     .coach-style-pill {
-      display: inline-block;
-      font-size: 10px; font-weight: 600;
-      padding: 3px 9px; border-radius: 980px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px; font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 8px;
       margin-bottom: 12px;
+      letter-spacing: 0.1px;
+    }
+
+    .coach-style-pill::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      flex-shrink: 0;
+      opacity: 0.85;
     }
 
     .coach-tagline {
@@ -884,7 +897,7 @@
           <img src="assets/coaches/Marcus_Steel.png" alt="Marcus Steel" />
         </div>
         <div class="coach-card-name">Marcus Steel</div>
-        <div class="coach-style-pill" style="background:rgba(239,68,68,0.08);color:#dc2626;">Military Discipline</div>
+        <div class="coach-style-pill" style="background:rgba(239,68,68,0.09);color:#dc2626;border:1.5px solid rgba(239,68,68,0.22);">Military Discipline</div>
         <div class="coach-tagline">"Zero excuses. Maximum output. Every day is a battle — and you will win it."</div>
       </div>
 
@@ -893,7 +906,7 @@
           <img src="assets/coaches/Kai Nakamura.png" alt="Kai Nakamura" />
         </div>
         <div class="coach-card-name">Kai Nakamura</div>
-        <div class="coach-style-pill" style="background:rgba(6,182,212,0.08);color:#0891b2;">Zen & Mindfulness</div>
+        <div class="coach-style-pill" style="background:rgba(6,182,212,0.09);color:#0891b2;border:1.5px solid rgba(6,182,212,0.22);">Zen & Mindfulness</div>
         <div class="coach-tagline">"Stillness is power. Build from the inside out — deep focus, lasting calm."</div>
       </div>
 
@@ -902,7 +915,7 @@
           <img src="assets/coaches/Alex Blaze.png" alt="Alex Blaze" />
         </div>
         <div class="coach-card-name">Alex Blaze</div>
-        <div class="coach-style-pill" style="background:rgba(245,158,11,0.08);color:#d97706;">Entrepreneur</div>
+        <div class="coach-style-pill" style="background:rgba(245,158,11,0.09);color:#d97706;border:1.5px solid rgba(245,158,11,0.22);">Entrepreneur</div>
         <div class="coach-tagline">"Ideas are cheap. Execution is everything. Move fast, win big."</div>
       </div>
 
@@ -911,7 +924,7 @@
           <img src="assets/coaches/Dr. Victor Sage.png" alt="Dr. Victor Sage" />
         </div>
         <div class="coach-card-name">Dr. Victor Sage</div>
-        <div class="coach-style-pill" style="background:rgba(91,33,182,0.08);color:#5B21B6;">Psychology & Purpose</div>
+        <div class="coach-style-pill" style="background:rgba(91,33,182,0.09);color:#5B21B6;border:1.5px solid rgba(91,33,182,0.22);">Psychology & Purpose</div>
         <div class="coach-tagline">"Know yourself deeply. Then transform from the root."</div>
       </div>
 
@@ -920,7 +933,7 @@
           <img src="assets/coaches/Sofia Reyes.png" alt="Sofia Reyes" />
         </div>
         <div class="coach-card-name">Sofia Reyes</div>
-        <div class="coach-style-pill" style="background:rgba(16,185,129,0.08);color:#059669;">Elite Performance</div>
+        <div class="coach-style-pill" style="background:rgba(16,185,129,0.09);color:#059669;border:1.5px solid rgba(16,185,129,0.22);">Elite Performance</div>
         <div class="coach-tagline">"Champions are made in the moments they want to quit."</div>
       </div>
     </div>
