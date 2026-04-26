@@ -467,36 +467,50 @@
     .coaches-header { margin-bottom: 56px; text-align: center; }
     .coaches-header .section-sub { margin: 14px auto 0; max-width: 440px; }
 
-    .coaches-grid {
-      display: grid; grid-template-columns: repeat(5, 1fr);
+    .coaches-marquee {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      -webkit-mask-image: linear-gradient(to right, transparent 0, black 8%, black 92%, transparent 100%);
+              mask-image: linear-gradient(to right, transparent 0, black 8%, black 92%, transparent 100%);
+    }
+
+    .coaches-track {
+      display: flex;
       gap: 16px;
+      width: max-content;
+      animation: coachesScroll 60s linear infinite;
+      will-change: transform;
+    }
+
+    @keyframes coachesScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
     }
 
     .coach-card {
+      flex: 0 0 220px;
       background: #fff;
       border: 1px solid rgba(0,0,0,0.07);
       border-radius: 20px;
       padding: 28px 20px 24px;
       display: flex; flex-direction: column; align-items: center; text-align: center;
-      transition: border-color 0.3s, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s;
       cursor: default;
-    }
-
-    .coach-card:hover {
-      border-color: rgba(91,33,182,0.3);
-      transform: translateY(-6px);
-      box-shadow: 0 16px 40px rgba(91,33,182,0.12);
+      pointer-events: none;
     }
 
     .coach-portrait {
-      width: 72px; height: 72px; border-radius: 50%;
+      width: 80px; height: 80px; border-radius: 50%;
       margin-bottom: 14px;
       overflow: hidden;
       position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
     }
 
     .coach-portrait img {
-      width: 100%; height: 100%;
+      width: 72px; height: 72px;
       object-fit: cover; object-position: top center;
       display: block;
     }
@@ -506,6 +520,11 @@
     .portrait-alex   { background: linear-gradient(160deg, #fb923c, #f97316); }
     .portrait-victor { background: linear-gradient(160deg, #a78bfa, #8b5cf6); }
     .portrait-sofia  { background: linear-gradient(160deg, #e879f9, #d946ef); }
+    .portrait-voss   { background: linear-gradient(160deg, #fca5a5, #ef4444); }
+    .portrait-maya   { background: linear-gradient(160deg, #6ee7b7, #059669); }
+    .portrait-zara   { background: linear-gradient(160deg, #fdba74, #ea580c); }
+    .portrait-elena  { background: linear-gradient(160deg, #c4b5fd, #7c3aed); }
+    .portrait-marco  { background: linear-gradient(160deg, #93c5fd, #2563eb); }
 
     .coach-card-name {
       font-size: 14px; font-weight: 700; color: var(--text);
@@ -721,8 +740,6 @@
     }
 
     @media (max-width: 880px) {
-      .coaches-grid { grid-template-columns: repeat(2, 1fr); }
-      .coaches-grid .coach-card:last-child { grid-column: 1 / -1; max-width: 220px; margin: 0 auto; }
       .cta-inner { grid-template-columns: 1fr; gap: 48px; }
       .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
       .footer-links { flex-wrap: wrap; justify-content: center; gap: 16px; }
@@ -758,15 +775,12 @@
       .feature-row.reverse .feature-text { order: 0; }
       .feature-row.reverse .feature-visual { order: 1; }
 
-      /* Coaches: single column */
-      .coaches-grid { grid-template-columns: 1fr !important; }
-      .coaches-grid .coach-card:last-child { grid-column: auto; max-width: 100%; margin: 0; }
-      .coach-card { display: flex; flex-direction: row; align-items: center; text-align: left; gap: 16px; padding: 18px 16px; }
-      .coach-portrait { margin-bottom: 0; flex-shrink: 0; }
-      .coach-card-info { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
-      .coach-card-name { margin-bottom: 0; }
-      .coach-style-pill { margin-bottom: 0; }
+      /* Coaches marquee on mobile: smaller cards, faster scroll */
+      .coach-card { flex: 0 0 180px; padding: 22px 14px 18px; border-radius: 16px; }
+      .coach-portrait { width: 76px; height: 76px; margin-bottom: 10px; }
+      .coach-portrait img { width: 60px; height: 60px; }
       .coach-tagline { display: none; }
+      .coaches-track { animation-duration: 45s; }
     }
   </style>
   <!-- Microsoft Clarity -->
@@ -934,60 +948,191 @@
       <p class="section-sub">Tell us your goals, your personality, and how you want to be pushed — and Arete builds a coach that's uniquely yours. Here are just a few examples of what's possible.</p>
     </div>
 
-    <div class="coaches-grid">
-      <div class="coach-card fade-up">
-        <div class="coach-portrait portrait-marcus">
-          <img src="assets/coaches/Marcus_Steel.png" alt="Marcus Steel" />
-        </div>
-        <div class="coach-card-info">
-          <div class="coach-card-name">Marcus Steel</div>
-          <div class="coach-style-pill" style="background:rgba(239,68,68,0.09);color:#dc2626;">Military Discipline</div>
-        </div>
-        <div class="coach-tagline">"Zero excuses. Maximum output. Every day is a battle — and you will win it."</div>
-      </div>
+    <div class="coaches-marquee fade-up">
+      <div class="coaches-track">
 
-      <div class="coach-card fade-up delay-1">
-        <div class="coach-portrait portrait-kai">
-          <img src="assets/coaches/Kai Nakamura.png" alt="Kai Nakamura" />
+        <!-- Set 1 -->
+        <div class="coach-card">
+          <div class="coach-portrait portrait-marcus"><img src="assets/coaches/Marcus_Steel.png" alt="Marcus Steel" /></div>
+          <div class="coach-card-info">
+            <div class="coach-card-name">Marcus Steel 🪖</div>
+            <div class="coach-style-pill" style="background:rgba(239,68,68,0.09);color:#dc2626;">Military Discipline</div>
+          </div>
+          <div class="coach-tagline">"No excuses. No mercy."</div>
         </div>
-        <div class="coach-card-info">
-          <div class="coach-card-name">Kai Nakamura</div>
-          <div class="coach-style-pill" style="background:rgba(6,182,212,0.09);color:#0891b2;">Zen & Mindfulness</div>
-        </div>
-        <div class="coach-tagline">"Stillness is power. Build from the inside out — deep focus, lasting calm."</div>
-      </div>
 
-      <div class="coach-card fade-up delay-2">
-        <div class="coach-portrait portrait-alex">
-          <img src="assets/coaches/Alex Blaze.png" alt="Alex Blaze" />
+        <div class="coach-card">
+          <div class="coach-portrait portrait-kai"><img src="assets/coaches/Kai Nakamura.png" alt="Kai Nakamura" /></div>
+          <div class="coach-card-info">
+            <div class="coach-card-name">Kai Nakamura 🧘</div>
+            <div class="coach-style-pill" style="background:rgba(16,185,129,0.09);color:#059669;">Zen & Mindfulness</div>
+          </div>
+          <div class="coach-tagline">"Stillness builds champions."</div>
         </div>
-        <div class="coach-card-info">
-          <div class="coach-card-name">Alex Blaze</div>
-          <div class="coach-style-pill" style="background:rgba(245,158,11,0.09);color:#d97706;">Entrepreneur</div>
-        </div>
-        <div class="coach-tagline">"Ideas are cheap. Execution is everything. Move fast, win big."</div>
-      </div>
 
-      <div class="coach-card fade-up delay-3">
-        <div class="coach-portrait portrait-victor">
-          <img src="assets/coaches/Dr. Victor Sage.png" alt="Dr. Victor Sage" />
+        <div class="coach-card">
+          <div class="coach-portrait portrait-alex"><img src="assets/coaches/Alex Blaze.png" alt="Alex Blaze" /></div>
+          <div class="coach-card-info">
+            <div class="coach-card-name">Alex Blaze ⚡</div>
+            <div class="coach-style-pill" style="background:rgba(245,158,11,0.09);color:#d97706;">Entrepreneur</div>
+          </div>
+          <div class="coach-tagline">"Execute now. Perfect later."</div>
         </div>
-        <div class="coach-card-info">
-          <div class="coach-card-name">Dr. Victor Sage</div>
-          <div class="coach-style-pill" style="background:rgba(91,33,182,0.09);color:#5B21B6;">Psychology & Purpose</div>
-        </div>
-        <div class="coach-tagline">"Know yourself deeply. Then transform from the root."</div>
-      </div>
 
-      <div class="coach-card fade-up delay-4">
-        <div class="coach-portrait portrait-sofia">
-          <img src="assets/coaches/Sofia Reyes.png" alt="Sofia Reyes" />
+        <div class="coach-card">
+          <div class="coach-portrait portrait-victor"><img src="assets/coaches/Dr. Victor Sage.png" alt="Dr. Victor Sage" /></div>
+          <div class="coach-card-info">
+            <div class="coach-card-name">Dr. Victor Sage 📖</div>
+            <div class="coach-style-pill" style="background:rgba(91,33,182,0.09);color:#5B21B6;">Psychology & Purpose</div>
+          </div>
+          <div class="coach-tagline">"Know your why. Own your path."</div>
         </div>
-        <div class="coach-card-info">
-          <div class="coach-card-name">Sofia Reyes</div>
-          <div class="coach-style-pill" style="background:rgba(16,185,129,0.09);color:#059669;">Elite Performance</div>
+
+        <div class="coach-card">
+          <div class="coach-portrait portrait-sofia"><img src="assets/coaches/Sofia Reyes.png" alt="Sofia Reyes" /></div>
+          <div class="coach-card-info">
+            <div class="coach-card-name">Sofia Reyes 🏆</div>
+            <div class="coach-style-pill" style="background:rgba(217,70,239,0.1);color:#a21caf;">Elite Performance</div>
+          </div>
+          <div class="coach-tagline">"Earn it. Every single day."</div>
         </div>
-        <div class="coach-tagline">"Champions are made in the moments they want to quit."</div>
+
+        <div class="coach-card">
+          <div class="coach-portrait portrait-voss"><img src="assets/coaches/Commander_Voss.png" alt="Commander Voss" /></div>
+          <div class="coach-card-info">
+            <div class="coach-card-name">Commander Voss ⚔️</div>
+            <div class="coach-style-pill" style="background:rgba(239,68,68,0.09);color:#dc2626;">Tactical Resolve</div>
+          </div>
+          <div class="coach-tagline">"Hold the line. Every time."</div>
+        </div>
+
+        <div class="coach-card">
+          <div class="coach-portrait portrait-maya"><img src="assets/coaches/Maya_Kato.png" alt="Maya Kato" /></div>
+          <div class="coach-card-info">
+            <div class="coach-card-name">Maya Kato 🌿</div>
+            <div class="coach-style-pill" style="background:rgba(16,185,129,0.09);color:#059669;">Mindful Balance</div>
+          </div>
+          <div class="coach-tagline">"Quiet mind, steady action."</div>
+        </div>
+
+        <div class="coach-card">
+          <div class="coach-portrait portrait-zara"><img src="assets/coaches/Zara.png" alt="Zara" /></div>
+          <div class="coach-card-info">
+            <div class="coach-card-name">Zara 🚀</div>
+            <div class="coach-style-pill" style="background:rgba(245,158,11,0.09);color:#d97706;">Bold Momentum</div>
+          </div>
+          <div class="coach-tagline">"Momentum beats perfection."</div>
+        </div>
+
+        <div class="coach-card">
+          <div class="coach-portrait portrait-elena"><img src="assets/coaches/Dr_Elena_Cross.png" alt="Dr. Elena Cross" /></div>
+          <div class="coach-card-info">
+            <div class="coach-card-name">Dr. Elena Cross 🔍</div>
+            <div class="coach-style-pill" style="background:rgba(91,33,182,0.09);color:#5B21B6;">Honest Insight</div>
+          </div>
+          <div class="coach-tagline">"Truth before comfort."</div>
+        </div>
+
+        <div class="coach-card">
+          <div class="coach-portrait portrait-marco"><img src="assets/coaches/Marco_Reyes.png" alt="Marco Reyes" /></div>
+          <div class="coach-card-info">
+            <div class="coach-card-name">Marco Reyes 🥇</div>
+            <div class="coach-style-pill" style="background:rgba(37,99,235,0.09);color:#1d4ed8;">Earned Discipline</div>
+          </div>
+          <div class="coach-tagline">"Show up. Then prove it."</div>
+        </div>
+
+        <!-- Set 2 (duplicate for seamless loop) -->
+        <div class="coach-card" aria-hidden="true">
+          <div class="coach-portrait portrait-marcus"><img src="assets/coaches/Marcus_Steel.png" alt="" /></div>
+          <div class="coach-card-info">
+            <div class="coach-card-name">Marcus Steel 🪖</div>
+            <div class="coach-style-pill" style="background:rgba(239,68,68,0.09);color:#dc2626;">Military Discipline</div>
+          </div>
+          <div class="coach-tagline">"No excuses. No mercy."</div>
+        </div>
+
+        <div class="coach-card" aria-hidden="true">
+          <div class="coach-portrait portrait-kai"><img src="assets/coaches/Kai Nakamura.png" alt="" /></div>
+          <div class="coach-card-info">
+            <div class="coach-card-name">Kai Nakamura 🧘</div>
+            <div class="coach-style-pill" style="background:rgba(16,185,129,0.09);color:#059669;">Zen & Mindfulness</div>
+          </div>
+          <div class="coach-tagline">"Stillness builds champions."</div>
+        </div>
+
+        <div class="coach-card" aria-hidden="true">
+          <div class="coach-portrait portrait-alex"><img src="assets/coaches/Alex Blaze.png" alt="" /></div>
+          <div class="coach-card-info">
+            <div class="coach-card-name">Alex Blaze ⚡</div>
+            <div class="coach-style-pill" style="background:rgba(245,158,11,0.09);color:#d97706;">Entrepreneur</div>
+          </div>
+          <div class="coach-tagline">"Execute now. Perfect later."</div>
+        </div>
+
+        <div class="coach-card" aria-hidden="true">
+          <div class="coach-portrait portrait-victor"><img src="assets/coaches/Dr. Victor Sage.png" alt="" /></div>
+          <div class="coach-card-info">
+            <div class="coach-card-name">Dr. Victor Sage 📖</div>
+            <div class="coach-style-pill" style="background:rgba(91,33,182,0.09);color:#5B21B6;">Psychology & Purpose</div>
+          </div>
+          <div class="coach-tagline">"Know your why. Own your path."</div>
+        </div>
+
+        <div class="coach-card" aria-hidden="true">
+          <div class="coach-portrait portrait-sofia"><img src="assets/coaches/Sofia Reyes.png" alt="" /></div>
+          <div class="coach-card-info">
+            <div class="coach-card-name">Sofia Reyes 🏆</div>
+            <div class="coach-style-pill" style="background:rgba(217,70,239,0.1);color:#a21caf;">Elite Performance</div>
+          </div>
+          <div class="coach-tagline">"Earn it. Every single day."</div>
+        </div>
+
+        <div class="coach-card" aria-hidden="true">
+          <div class="coach-portrait portrait-voss"><img src="assets/coaches/Commander_Voss.png" alt="" /></div>
+          <div class="coach-card-info">
+            <div class="coach-card-name">Commander Voss ⚔️</div>
+            <div class="coach-style-pill" style="background:rgba(239,68,68,0.09);color:#dc2626;">Tactical Resolve</div>
+          </div>
+          <div class="coach-tagline">"Hold the line. Every time."</div>
+        </div>
+
+        <div class="coach-card" aria-hidden="true">
+          <div class="coach-portrait portrait-maya"><img src="assets/coaches/Maya_Kato.png" alt="" /></div>
+          <div class="coach-card-info">
+            <div class="coach-card-name">Maya Kato 🌿</div>
+            <div class="coach-style-pill" style="background:rgba(16,185,129,0.09);color:#059669;">Mindful Balance</div>
+          </div>
+          <div class="coach-tagline">"Quiet mind, steady action."</div>
+        </div>
+
+        <div class="coach-card" aria-hidden="true">
+          <div class="coach-portrait portrait-zara"><img src="assets/coaches/Zara.png" alt="" /></div>
+          <div class="coach-card-info">
+            <div class="coach-card-name">Zara 🚀</div>
+            <div class="coach-style-pill" style="background:rgba(245,158,11,0.09);color:#d97706;">Bold Momentum</div>
+          </div>
+          <div class="coach-tagline">"Momentum beats perfection."</div>
+        </div>
+
+        <div class="coach-card" aria-hidden="true">
+          <div class="coach-portrait portrait-elena"><img src="assets/coaches/Dr_Elena_Cross.png" alt="" /></div>
+          <div class="coach-card-info">
+            <div class="coach-card-name">Dr. Elena Cross 🔍</div>
+            <div class="coach-style-pill" style="background:rgba(91,33,182,0.09);color:#5B21B6;">Honest Insight</div>
+          </div>
+          <div class="coach-tagline">"Truth before comfort."</div>
+        </div>
+
+        <div class="coach-card" aria-hidden="true">
+          <div class="coach-portrait portrait-marco"><img src="assets/coaches/Marco_Reyes.png" alt="" /></div>
+          <div class="coach-card-info">
+            <div class="coach-card-name">Marco Reyes 🥇</div>
+            <div class="coach-style-pill" style="background:rgba(37,99,235,0.09);color:#1d4ed8;">Earned Discipline</div>
+          </div>
+          <div class="coach-tagline">"Show up. Then prove it."</div>
+        </div>
+
       </div>
     </div>
 
